@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="CSS/style.css" />
+  <body>
+  
+  <center>
+    <div class="logo">
+      <img alt="Weaviate" src="https://cdn-icons-png.flaticon.com/512/254/254032.png">
+    </div>
+    <form action="/" spellcheck="false" method="post"> 
+      <div class="search-section">
+    <div class="bar">
+      <input class="searchbar" name="searched_data" type="text" title="Search" autocomplete="off">
+      
+    </div>
+    <div class="buttons">
+      <button class="button btn2" type="submit">Search</button>
+     </div>
+     </div>
+     </form>
+
+     <% if(obj_info.length!=null){%>
+      <h2>TOP RESULTS!</h2>
+      <% } %> 
+    </center>
+     <div class="container grid grid--3-cols margin-bottom-md">
+      <% for (let i = 0;i<obj_info.length; i++) { %> 
+    <div class="meal">
+      <div >
+        <br>index:<%=obj_info[i]['index']  %> <br>
+        <br>Part:<%=obj_info[i]['part']  %> <br>
+        <br>FileName:<%=obj_info[i].filename  %> <br>
+        <br>Certainity:<%=obj_info[i]['_additional']['certainty']  %> <br>
+        <br>Content:<%=obj_info[i]['paragraph']  %> <br>
+      
+      </div>
+    </div>
+    
+          
+          
+    <% } %> 
+  </div>
+         
+    </body>
+
+</html>
