@@ -57,7 +57,7 @@ img {
   margin: 2rem;
   height: 11rem;
   background-color: #00a21e;
-  margin-top: 2rem;
+  margin-top: 10rem;
 }
 
 .container {
@@ -172,7 +172,7 @@ li a:hover {
 color: #fff !important;
 }
 .search-section{
-  width: 60%;
+  width: 50%;
   display: flex;
   justify-content: space-around;
 }
@@ -194,9 +194,9 @@ color: #fff !important;
 }
 .searchbar{
   background-color: #fff !important;
-  height:70px;
+  height:45px;
   border:none;
-  width:90%;
+  width:500px;
   font-size:16px;
   outline: none;
   
