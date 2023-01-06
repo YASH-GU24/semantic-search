@@ -69,17 +69,27 @@
               <% for (let i = 0;i<obj_info.length; i++) { %>
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <div class="card-header">
-                            <a class="btn btn-secondary btn-sm" href="#!"><%=obj_info[i]['_additional']['certainty']  %></a>
-                            <a class="btn btn-primary btn-sm" href="#!">Show Similar</a>
-                        </div>
+                        
                         <div class="card-body">
-                            <h2 class="card-title"><%=obj_info[i].filename  %></h2>
+                            <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                                <img src="https://dapologeticsimages.s3.amazonaws.com/podcasts/img_disciple_making_parent.png" alt="twbs" width="32" height="32" class="rounded-square flex-shrink-0">
+                                    <div class="d-flex gap-2 w-100 justify-content-between">
+                                      <div>
+                                        <h6 class="mb-0"><%=obj_info[i].filename  %></h6>
+                                        <p class="mb-0 opacity-75">Part <%=obj_info[i]['part']  %></p>
+                                      </div>
+                                      <small class="opacity-50 text-nowrap">92.45</small>
+                                    </div>
+                        </a>
+                            <!--<h2 class="card-title"></h2>-->
                                 <p class="card-text">
                                     <!--<br>index:<%=obj_info[i]['index']  %> <br>-->
-                                    <br>Part <%=obj_info[i]['part']  %> <br>
                                     <br><%=obj_info[i]['paragraph']  %> <br>
                                 </p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-secondary btn-sm" href="#!"><%=obj_info[i]['_additional']['certainty']  %></a>
+                            <a class="btn btn-primary btn-sm" href="#!">Show Similar</a>
                         </div>
                         
                     </div>
