@@ -6742,6 +6742,10 @@ textarea.form-control-lg {
   display: flex !important;
 }
 
+.over {
+    overflow: auto;
+}
+
 .d-inline-flex {
   display: inline-flex !important;
 }
@@ -6957,6 +6961,10 @@ textarea.form-control-lg {
 
 .w-100 {
   width: 100% !important;
+}
+
+.w-85{
+    width: 85% !important;
 }
 
 .w-auto {
