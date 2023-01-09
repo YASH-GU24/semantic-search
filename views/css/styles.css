@@ -7421,6 +7421,10 @@ textarea.form-control-lg {
   margin-left: auto !important;
 }
 
+.inline {
+    display: inline-flex;
+}
+
 .p-0 {
   padding: 0 !important;
 }
