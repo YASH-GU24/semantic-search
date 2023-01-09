@@ -27,7 +27,7 @@ app.post('/', (req, res) => {
     client.graphql
       .get()
       .withClassName('Document')
-      .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","_additional { certainty }"])
+      .withFields(['paragraph',"part","index","filename","_additional { certainty }"])
       .withNearText({
         concepts: [text],
         certainty: 0.7
