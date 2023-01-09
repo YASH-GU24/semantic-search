@@ -8650,6 +8650,12 @@ textarea.form-control-lg {
   .float-md-none {
     float: none !important;
   }
+    
+    .rounded-square {
+        border-radius: 5px;
+        border-style: solid;
+        border-color:lightgray;
+    }
 
   .d-md-inline {
     display: inline !important;
