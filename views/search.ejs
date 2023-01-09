@@ -76,12 +76,12 @@
                         </div>
                         <div class="card-body">
                             <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                                <img src="https://dapologeticsimages.s3.amazonaws.com/podcasts/img_truth_over_tribe.png" alt="twbs" width="50" height="50" class="rounded-square flex-shrink-0">
+                                <img src="<%=obj_info[i]['productionimage']  %>" alt="twbs" width="50" height="50" class="rounded-square flex-shrink-0">
                                     <div class="d-flex gap-2 w-85 justify-content-between">
                                       <div class="over">
                                         <h6 class="mb-0"><%=obj_info[i].filename  %></h6>
                                           <div class="inline">
-                                                <p class="mb-0 opacity-75">Episode <%=obj_info[i]['part']  %></p>
+                                                <p class="mb-0 opacity-75">Episode <%=obj_info[i]['episodenumber']%></p>
                                                 <p>&nbsp;|&nbsp; </p>
                                                 <p class="mb-0 opacity-75">Part <%=obj_info[i]['part']  %></p>
                                             </div>
@@ -97,7 +97,8 @@
                                 </p>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-primary btn-sm" href="#!">Show Similar</a>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="myModal2" href="#!">Show Similar</button>
+                            
                         </div>
                         
                     </div>
@@ -106,7 +107,9 @@
                 
                 
             </div>
+            
         </div>
+    
         <!-- Footer
         <footer class="py-5 bg-dark">
             <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
