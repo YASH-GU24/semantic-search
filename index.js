@@ -79,6 +79,46 @@ app.get('/:idx',(req,res)=>{
   // res.render('info.ejs',{plant_info:obj}) 
 })
 
+app.get('/bible/:idx',(req,res)=>{
+  const {idx}=req.params;
+  console.log(idx)
+  client.graphql
+      .get()
+      .withClassName('Document')
+      .withFields(["_additional{id}"])
+      .withWhere({
+        operator: 'Equal',
+        path: ['index'],
+        valueNumber: parseInt(idx),
+      })
+      .withLimit(1)
+      .do()    
+      .then(info => {
+          id = info['data']['Get']['Document'][0]['_additional']['id']
+            client.graphql
+            .get()
+            .withClassName('Document')
+            .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","_additional { certainty }"])
+            .withWhere({
+              operator: 'GreaterThan',
+              path: ['index'],
+              valueNumber: 99999900,
+            })
+            .withNearObject({id: id})
+            .do()
+            .then(info2 => {
+              info2['data']['Get']['Document'].shift()
+              res.render(path.join(initial_path, "bible_results.ejs"),{obj_info:info2['data']['Get']['Document']});
+            })
+            .catch(err => {
+              console.error(err)
+            });
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  // res.render('info.ejs',{plant_info:obj}) 
+})
 
 
 app.listen(process.env.PORT || 3000,
