@@ -96,16 +96,18 @@
                                     <br><%=obj_info[i]['paragraph']  %> <br>
                                 </p>
                         </div>
-                    <form class="card p-2" role="search" action="<%= "/"+obj_info[i]['index']  %>" spellcheck="false" method="get">
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="myModal2" href="#!">Show Similar</button>
-                        </div>
+                    <div class="card-footer inline">
+                    <form role="search" action="<%= "/"+obj_info[i]['index']  %>" spellcheck="false" method="get" display="inline-block">
+                        
+                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="myModal2" href="#!"><i class="fa-solid fa-copy"></i></button>
+                        
+                    </form>&nbsp;
+                    <form  role="search" action="<%= "/bible/"+obj_info[i]['index']  %>" spellcheck="false" method="get" target="_blank" display="inline-block">
+                        
+                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="myModal2" href="#!"><i class="fa-solid fa-book-bible"></i></button>
+                        
                     </form>
-                    <form class="card p-2" role="search" action="<%= "/bible/"+obj_info[i]['index']  %>" spellcheck="false" method="get" target="_blank">
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="myModal2" href="#!">Show Similar in Bible</button>
-                        </div>
-                    </form>
+                    </div>
                     </div>
                 </div>
                  <% } %>
