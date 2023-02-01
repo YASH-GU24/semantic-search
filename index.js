@@ -32,7 +32,7 @@ app.post('/', (req, res) => {
         concepts: [text],
         certainty: 0.7
       })
-      .withLimit(12)
+      .withLimit(20)
       .do()    
       .then(info => {
         // console.log(info['data']['Get']['Document'][0]['_additional']['certainty'])
