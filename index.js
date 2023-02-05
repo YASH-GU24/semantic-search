@@ -13,6 +13,10 @@ const client = weaviate.client({
   scheme: 'http',
   host: process.env.WEAVIATE_TOKEN,
   headers: {'X-OpenAI-Api-Key': process.env.OPEN_AI_TOKEN},
+  authClientSecret: new weaviate.AuthUserPasswordCredentials({
+    username: process.env.USER_ID,
+    password: process.env.USER_PASSWORD
+  })
 });
 
 //rendering home page
