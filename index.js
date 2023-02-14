@@ -80,7 +80,6 @@ app.get('/:idx',(req,res)=>{
       .catch(err => {
         console.error(err)
       })
-  // res.render('info.ejs',{plant_info:obj}) 
 })
 
 app.get('/bible/:idx',(req,res)=>{
@@ -121,10 +120,94 @@ app.get('/bible/:idx',(req,res)=>{
       .catch(err => {
         console.error(err)
       })
-  // res.render('info.ejs',{plant_info:obj}) 
 })
-
-
+app.get('/all/:text', (req, res) => {
+  const {text}=req.params;
+  console.log(text)
+  client.graphql
+      .get()
+      .withClassName('Document')
+      .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+      .withWhere({
+        operator: 'LessThan',
+        path: ['index'],
+        valueNumber: 99999900,
+      })
+      .withNearText({
+        concepts: [text],
+        certainty: 0.7
+      })
+      .withLimit(20)
+      .do()    
+      .then(info => {
+        // console.log(info['data']['Get']['Document'][0]['_additional']['certainty'])
+        res.send(info['data']['Get']['Document']);
+      })
+      .catch(err => {
+        console.error(err)
+      })
+})
+app.get('/only_bible/:text', (req, res) => {
+  const {text}=req.params;
+  console.log(text)
+  client.graphql
+      .get()
+      .withClassName('Document')
+      .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+      .withWhere({
+        operator: 'GreaterThan',
+        path: ['index'],
+        valueNumber: 99999900,
+      })
+      .withNearText({
+        concepts: [text],
+        certainty: 0.7
+      })
+      .withLimit(20)
+      .do()    
+      .then(info => {
+        // console.log(info['data']['Get']['Document'][0]['_additional']['certainty'])
+        res.send(info['data']['Get']['Document']);
+      })
+      .catch(err => {
+        console.error(err)
+      })
+})
+app.get('/get_recommendation/:idx',(req,res)=>{
+  const {idx}=req.params;
+  console.log(idx)
+  client.graphql
+      .get()
+      .withClassName('Document')
+      .withFields(["_additional{id}"])
+      .withWhere({
+        operator: 'Equal',
+        path: ['index'],
+        valueNumber: parseInt(idx),
+      })
+      .withLimit(1)
+      .do()    
+      .then(info => {
+          id = info['data']['Get']['Document'][0]['_additional']['id']
+          console.log(id)
+            client.graphql
+            .get()
+            .withClassName('Document')
+            .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+            .withNearObject({id: id})
+            .do()
+            .then(info2 => {
+              info2['data']['Get']['Document'].shift()
+              res.send(info2['data']['Get']['Document']);
+            })
+            .catch(err => {
+              console.error(err)
+            });
+      })
+      .catch(err => {
+        console.error(err)
+      })
+})
 app.listen(process.env.PORT || 3000,
   () => console.log(`The app is running on: http://localhost:${process.env.PORT || 3000}`)
 ) 
