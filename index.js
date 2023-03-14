@@ -31,7 +31,7 @@ app.post('/', (req, res) => {
     client.graphql
       .get()
       .withClassName('Document')
-      .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","_additional { certainty }"])
+      .withFields(["index","holder","production","episodenumber","part","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","aifirstgrader","aisimple","aielegant","aicreative","aibiblical","aicasual","aiformal","ainewsanchor","ailoving","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","booknumber","episodetitle","filename","paragraph","summary","productionimage","publisher","publisherimage","testament","type","booktitle","_additional { certainty }"])
       .withNearText({
         concepts: [text],
         certainty: 0.7
@@ -66,7 +66,7 @@ app.get('/:idx',(req,res)=>{
             client.graphql
             .get()
             .withClassName('Document')
-            .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+            .withFields(["index","holder","production","episodenumber","part","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","aifirstgrader","aisimple","aielegant","aicreative","aibiblical","aicasual","aiformal","ainewsanchor","ailoving","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","booknumber","episodetitle","filename","paragraph","summary","productionimage","publisher","publisherimage","testament","type","booktitle","_additional { certainty }"])
             .withNearObject({id: id})
             .do()
             .then(info2 => {
@@ -101,7 +101,7 @@ app.get('/bible/:idx',(req,res)=>{
             client.graphql
             .get()
             .withClassName('Document')
-            .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+            .withFields(["index","holder","production","episodenumber","part","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","aifirstgrader","aisimple","aielegant","aicreative","aibiblical","aicasual","aiformal","ainewsanchor","ailoving","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","booknumber","episodetitle","filename","paragraph","summary","productionimage","publisher","publisherimage","testament","type","booktitle","_additional { certainty }"])
             .withWhere({
               operator: 'GreaterThan',
               path: ['index'],
@@ -127,7 +127,7 @@ app.get('/all/:text', (req, res) => {
   client.graphql
       .get()
       .withClassName('Document')
-      .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+      .withFields(["index","holder","production","episodenumber","part","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","aifirstgrader","aisimple","aielegant","aicreative","aibiblical","aicasual","aiformal","ainewsanchor","ailoving","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","booknumber","episodetitle","filename","paragraph","summary","productionimage","publisher","publisherimage","testament","type","booktitle","_additional { certainty }"])
       .withWhere({
         operator: 'LessThan',
         path: ['index'],
@@ -153,7 +153,7 @@ app.get('/only_bible/:text', (req, res) => {
   client.graphql
       .get()
       .withClassName('Document')
-      .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+      .withFields(["index","holder","production","episodenumber","part","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","aifirstgrader","aisimple","aielegant","aicreative","aibiblical","aicasual","aiformal","ainewsanchor","ailoving","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","booknumber","episodetitle","filename","paragraph","summary","productionimage","publisher","publisherimage","testament","type","booktitle","_additional { certainty }"])
       .withWhere({
         operator: 'GreaterThan',
         path: ['index'],
@@ -193,7 +193,7 @@ app.get('/get_recommendation/:idx',(req,res)=>{
             client.graphql
             .get()
             .withClassName('Document')
-            .withFields(["index","filename","production","episodetitle","episodenumber","part","paragraph","summary","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","productionimage","publisherimage","publisher","testament","booknumber","_additional { certainty }"])
+            .withFields(["index","holder","production","episodenumber","part","aititle","aisubtitle","aikeywords","bibleverses","biblecharacters","bibleconcepts","famouspeople","booksmentioned","lifeissues","biblicallesson","questionanswered","bookofthebible","aifirstgrader","aisimple","aielegant","aicreative","aibiblical","aicasual","aiformal","ainewsanchor","ailoving","importantphrase","christiantopics","biblicalconcepts","describingwords","biblereferences","biblephrases","aiphdstudent","booknumber","episodetitle","filename","paragraph","summary","productionimage","publisher","publisherimage","testament","type","booktitle","_additional { certainty }"])
             .withNearObject({id: id})
             .do()
             .then(info2 => {
