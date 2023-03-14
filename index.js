@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = weaviate.client({
-  scheme: 'http',
+  scheme: 'https',
   host: process.env.WEAVIATE_TOKEN,
   headers: {'X-OpenAI-Api-Key': process.env.OPEN_AI_TOKEN},
   authClientSecret: new weaviate.AuthUserPasswordCredentials({
