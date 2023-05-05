@@ -76,6 +76,28 @@ app.get('/get_data', (req, res) => {
       console.error(err)
     })
 })
+app.get('/get_filter', (req, res) => {
+  const { field, value } = req.query;
+  console.log(req.query)
+  client.graphql
+    .get()
+    .withClassName('Document')
+    .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
+    .withWhere(
+      {
+        operator: 'Equal',
+        path: [field],
+        valueString: value,
+      })
+    .withLimit(20)
+    .do()
+    .then(info => {
+      res.send(info['data']['Get']['Document']);
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
 app.get('/:idx', (req, res) => {
   const { idx } = req.params;
   console.log(idx)
