@@ -211,7 +211,7 @@ app.get('/all/:text', (req, res) => {
       operator: 'Or',
       operands: obj
     }
-    if(Array.isArray(value)==Array)
+    if(value.constructor==Array)
     {
       where_obj={
         operator: 'And',
