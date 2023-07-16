@@ -362,6 +362,29 @@ app.get('/get_recommendation/:idx', (req, res) => {
       console.error(err)
     })
 })
+
+app.get('/get_by_idx/:idx', (req, res) => {
+  const { idx } = req.params;
+  console.log(idx)
+  client.graphql
+    .get()
+    .withClassName('Document')
+    .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
+    .withWhere({
+      operator: 'Equal',
+      path: ['index'],
+      valueNumber: parseInt(idx),
+    })
+    .withLimit(1)
+    .do()
+    .then(info => {
+      res.send(info['data']['Get']['Document']);
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
 app.get('/get_data/', (req, res) => {
   const { filename, part } = req.params;
   console.log(filename, part)
