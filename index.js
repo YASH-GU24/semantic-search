@@ -181,9 +181,16 @@ app.get('/all/:text', (req, res) => {
       .withClassName('Document')
       .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
       .withWhere({
-        operator: 'LessThan',
-        path: ['index'],
-        valueNumber: 99999900,
+        "operator": "And",
+        "operands": [{
+          operator: 'LessThan',
+          path: ['index'],
+          valueNumber: 99999900,
+        }, {
+          "path": ["holder"],
+          "operator": "NotEqual",
+          "valueString": "Christianity Today",
+        }]
       })
       .withNearText({
         concepts: [text],
@@ -211,9 +218,8 @@ app.get('/all/:text', (req, res) => {
       operator: 'Or',
       operands: obj
     }
-    if(value.constructor==Array)
-    {
-      where_obj={
+    if (value.constructor == Array) {
+      where_obj = {
         operator: 'And',
         operands: [
           parent_obj,
@@ -225,9 +231,8 @@ app.get('/all/:text', (req, res) => {
         ]
       }
     }
-    else
-    {
-      where_obj={
+    else {
+      where_obj = {
         operator: 'And',
         operands: [
           {
