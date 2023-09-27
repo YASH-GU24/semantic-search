@@ -98,6 +98,151 @@ app.get('/get_filter', (req, res) => {
       console.error(err)
     })
 })
+app.get('/all/:text', (req, res) => {
+  const { text } = req.params;
+  const { field, value } = req.query;
+  if (field == null || value == null || field == '' || value == '') {
+    console.log("hello")
+    client.graphql
+      .get()
+      .withClassName('Document')
+      .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
+      .withWhere({
+        "operator":"And",
+        operands:[{
+        "operator": "Or",
+        "operands": [{
+          operator: 'LessThan',
+          path: ['index'],
+          valueNumber: 139443,
+        },
+        {
+          operator: 'GreaterThan',
+          path: ['index'],
+          valueNumber: 220574,
+        }]},
+        {
+          operator: 'LessThan',
+          path: ['index'],
+          valueNumber: 99999900,
+        }
+      ]
+      })
+      .withNearText({
+        concepts: [text],
+        certainty: 0.7
+      })
+      .withLimit(20)
+      .do()
+      .then(info => {
+        res.send(info['data']['Get']['Document']);
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+  else {
+    obj = []
+    for (let i = 0; i < value.length; i++) {
+      obj.push({
+        path: field.split(" "),
+        operator: 'Equal',
+        valueString: value[i]
+      })
+    }
+    parent_obj = {
+      operator: 'Or',
+      operands: obj
+    }
+    if (value.constructor == Array) {
+      where_obj = {
+        operator: 'And',
+        operands: [
+          parent_obj,
+          {
+            "operator":"And",
+            operands:[{
+            "operator": "Or",
+            "operands": [{
+              operator: 'LessThan',
+              path: ['index'],
+              valueNumber: 139443,
+            },
+            {
+              operator: 'GreaterThan',
+              path: ['index'],
+              valueNumber: 220574,
+            }]},
+            {
+              operator: 'LessThan',
+              path: ['index'],
+              valueNumber: 99999900,
+            }
+          ]
+          }
+        ]
+      }
+    }
+    else {
+      where_obj = {
+        operator: 'And',
+        operands: [
+          {
+            path: field.split(" "),
+            operator: 'Equal',
+            valueString: value
+          },
+          {
+            operator: 'LessThan',
+            path: ['index'],
+            valueNumber: 99999900,
+          },
+          {
+            "operator":"And",
+            operands:[{
+            "operator": "Or",
+            "operands": [{
+              operator: 'LessThan',
+              path: ['index'],
+              valueNumber: 139443,
+            },
+            {
+              operator: 'GreaterThan',
+              path: ['index'],
+              valueNumber: 220574,
+            }]},
+            {
+              operator: 'LessThan',
+              path: ['index'],
+              valueNumber: 99999900,
+            }
+          ]
+          }
+        ]
+      }
+    }
+    console.log(parent_obj)
+    client.graphql
+      .get()
+      .withClassName('Document')
+      .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
+      .withWhere(
+        where_obj
+      )
+      .withNearText({
+        concepts: [text],
+        certainty: 0.7
+      })
+      .withLimit(20)
+      .do()
+      .then(info => {
+        res.send(info['data']['Get']['Document']);
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+})
 app.get('/:idx', (req, res) => {
   const { idx } = req.params;
   console.log(idx)
@@ -172,104 +317,7 @@ app.get('/bible/:idx', (req, res) => {
       console.error(err)
     })
 })
-app.get('/all/:text', (req, res) => {
-  const { text } = req.params;
-  const { field, value } = req.query;
-  if (field == null || value == null || field == '' || value == '') {
-    client.graphql
-      .get()
-      .withClassName('Document')
-      .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
-      .withWhere({
-        "operator": "And",
-        "operands": [{
-          operator: 'LessThan',
-          path: ['index'],
-          valueNumber: 99999900,
-        }, {
-          "path": ["holder"],
-          "operator": "NotEqual",
-          "valueString": "Christianity Today",
-        }]
-      })
-      .withNearText({
-        concepts: [text],
-        certainty: 0.7
-      })
-      .withLimit(20)
-      .do()
-      .then(info => {
-        res.send(info['data']['Get']['Document']);
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
-  else {
-    obj = []
-    for (let i = 0; i < value.length; i++) {
-      obj.push({
-        path: field.split(" "),
-        operator: 'Equal',
-        valueString: value[i]
-      })
-    }
-    parent_obj = {
-      operator: 'Or',
-      operands: obj
-    }
-    if (value.constructor == Array) {
-      where_obj = {
-        operator: 'And',
-        operands: [
-          parent_obj,
-          {
-            operator: 'LessThan',
-            path: ['index'],
-            valueNumber: 99999900,
-          }
-        ]
-      }
-    }
-    else {
-      where_obj = {
-        operator: 'And',
-        operands: [
-          {
-            path: field.split(" "),
-            operator: 'Equal',
-            valueString: value
-          },
-          {
-            operator: 'LessThan',
-            path: ['index'],
-            valueNumber: 99999900,
-          }
-        ]
-      }
-    }
-    console.log(parent_obj)
-    client.graphql
-      .get()
-      .withClassName('Document')
-      .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
-      .withWhere(
-        where_obj
-      )
-      .withNearText({
-        concepts: [text],
-        certainty: 0.7
-      })
-      .withLimit(20)
-      .do()
-      .then(info => {
-        res.send(info['data']['Get']['Document']);
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
-})
+
 app.get('/only_bible/:text', (req, res) => {
   const { text } = req.params;
   const { field, value } = req.query;
