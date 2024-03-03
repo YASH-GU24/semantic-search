@@ -30,17 +30,17 @@ app.post('/', (req, res) => {
   console.log(text)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
     .withNearText({
-      concepts: [text],
-      certainty: 0.7
+      concepts: [text]
     })
     .withLimit(20)
     .do()
     .then(info => {
       // console.log(info['data']['Get']['Document'][0]['_additional']['certainty'])
-      res.render(path.join(initial_path, "search.ejs"), { obj_info: info['data']['Get']['Document'] });
+      console.log(info)
+      res.render(path.join(initial_path, "search.ejs"), { obj_info: info['data']['Get']['NewDocument'] });
     })
     .catch(err => {
       console.error(err)
@@ -51,7 +51,7 @@ app.get('/get_data', (req, res) => {
   console.log(req.query)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
     .withWhere(
       {
@@ -70,7 +70,7 @@ app.get('/get_data', (req, res) => {
     .withLimit(20)
     .do()
     .then(info => {
-      res.send(info['data']['Get']['Document']);
+      res.send(info['data']['Get']['NewDocument']);
     })
     .catch(err => {
       console.error(err)
@@ -81,7 +81,7 @@ app.get('/get_filter', (req, res) => {
   console.log(req.query)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
     .withWhere(
       {
@@ -92,7 +92,7 @@ app.get('/get_filter', (req, res) => {
     .withLimit(20)
     .do()
     .then(info => {
-      res.send(info['data']['Get']['Document']);
+      res.send(info['data']['Get']['NewDocument']);
     })
     .catch(err => {
       console.error(err)
@@ -105,7 +105,7 @@ app.get('/all/:text', (req, res) => {
     console.log("hello")
     client.graphql
       .get()
-      .withClassName('Document')
+      .withClassName('NewDocument')
       .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
       .withWhere({
         "operator":"And",
@@ -135,7 +135,7 @@ app.get('/all/:text', (req, res) => {
       .withLimit(20)
       .do()
       .then(info => {
-        res.send(info['data']['Get']['Document']);
+        res.send(info['data']['Get']['NewDocument']);
       })
       .catch(err => {
         console.error(err)
@@ -224,7 +224,7 @@ app.get('/all/:text', (req, res) => {
     console.log(parent_obj)
     client.graphql
       .get()
-      .withClassName('Document')
+      .withClassName('NewDocument')
       .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
       .withWhere(
         where_obj
@@ -236,7 +236,7 @@ app.get('/all/:text', (req, res) => {
       .withLimit(20)
       .do()
       .then(info => {
-        res.send(info['data']['Get']['Document']);
+        res.send(info['data']['Get']['NewDocument']);
       })
       .catch(err => {
         console.error(err)
@@ -248,7 +248,7 @@ app.get('/:idx', (req, res) => {
   console.log(idx)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["_additional{id}"])
     .withWhere({
       operator: 'Equal',
@@ -258,16 +258,16 @@ app.get('/:idx', (req, res) => {
     .withLimit(1)
     .do()
     .then(info => {
-      id = info['data']['Get']['Document'][0]['_additional']['id']
+      id = info['data']['Get']['NewDocument'][0]['_additional']['id']
       client.graphql
         .get()
-        .withClassName('Document')
+        .withClassName('NewDocument')
         .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
         .withNearObject({ id: id })
         .do()
         .then(info2 => {
-          info2['data']['Get']['Document'].shift()
-          res.render(path.join(initial_path, "search.ejs"), { obj_info: info2['data']['Get']['Document'] });
+          info2['data']['Get']['NewDocument'].shift()
+          res.render(path.join(initial_path, "search.ejs"), { obj_info: info2['data']['Get']['NewDocument'] });
         })
         .catch(err => {
           console.error(err)
@@ -283,7 +283,7 @@ app.get('/bible/:idx', (req, res) => {
   console.log(idx)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["_additional{id}"])
     .withWhere({
       operator: 'Equal',
@@ -293,10 +293,10 @@ app.get('/bible/:idx', (req, res) => {
     .withLimit(1)
     .do()
     .then(info => {
-      id = info['data']['Get']['Document'][0]['_additional']['id']
+      id = info['data']['Get']['NewDocument'][0]['_additional']['id']
       client.graphql
         .get()
-        .withClassName('Document')
+        .withClassName('NewDocument')
         .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
         .withWhere({
           operator: 'GreaterThan',
@@ -306,8 +306,8 @@ app.get('/bible/:idx', (req, res) => {
         .withNearObject({ id: id })
         .do()
         .then(info2 => {
-          info2['data']['Get']['Document'].shift()
-          res.render(path.join(initial_path, "bible_results.ejs"), { obj_info: info2['data']['Get']['Document'] });
+          info2['data']['Get']['NewDocument'].shift()
+          res.render(path.join(initial_path, "bible_results.ejs"), { obj_info: info2['data']['Get']['NewDocument'] });
         })
         .catch(err => {
           console.error(err)
@@ -324,7 +324,7 @@ app.get('/only_bible/:text', (req, res) => {
   if (field == null || value == null || field == '' || value == '') {
     client.graphql
       .get()
-      .withClassName('Document')
+      .withClassName('NewDocument')
       .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
       .withWhere({
         operator: 'GreaterThan',
@@ -338,8 +338,8 @@ app.get('/only_bible/:text', (req, res) => {
       .withLimit(20)
       .do()
       .then(info => {
-        // console.log(info['data']['Get']['Document'][0]['_additional']['certainty'])
-        res.send(info['data']['Get']['Document']);
+        // console.log(info['data']['Get']['NewDocument'][0]['_additional']['certainty'])
+        res.send(info['data']['Get']['NewDocument']);
       })
       .catch(err => {
         console.error(err)
@@ -348,7 +348,7 @@ app.get('/only_bible/:text', (req, res) => {
   else {
     client.graphql
       .get()
-      .withClassName('Document')
+      .withClassName('NewDocument')
       .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
       .withWhere(
         {
@@ -372,8 +372,8 @@ app.get('/only_bible/:text', (req, res) => {
       .withLimit(20)
       .do()
       .then(info => {
-        // console.log(info['data']['Get']['Document'][0]['_additional']['certainty'])
-        res.send(info['data']['Get']['Document']);
+        // console.log(info['data']['Get']['NewDocument'][0]['_additional']['certainty'])
+        res.send(info['data']['Get']['NewDocument']);
       })
       .catch(err => {
         console.error(err)
@@ -385,7 +385,7 @@ app.get('/get_recommendation/:idx', (req, res) => {
   console.log(idx)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["_additional{id}"])
     .withWhere({
       operator: 'Equal',
@@ -395,17 +395,17 @@ app.get('/get_recommendation/:idx', (req, res) => {
     .withLimit(1)
     .do()
     .then(info => {
-      id = info['data']['Get']['Document'][0]['_additional']['id']
+      id = info['data']['Get']['NewDocument'][0]['_additional']['id']
       console.log(id)
       client.graphql
         .get()
-        .withClassName('Document')
+        .withClassName('NewDocument')
         .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
         .withNearObject({ id: id })
         .do()
         .then(info2 => {
-          info2['data']['Get']['Document'].shift()
-          res.send(info2['data']['Get']['Document']);
+          info2['data']['Get']['NewDocument'].shift()
+          res.send(info2['data']['Get']['NewDocument']);
         })
         .catch(err => {
           console.error(err)
@@ -421,7 +421,7 @@ app.get('/get_by_idx/:idx', (req, res) => {
   console.log(idx)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
     .withWhere({
       operator: 'Equal',
@@ -431,7 +431,7 @@ app.get('/get_by_idx/:idx', (req, res) => {
     .withLimit(1)
     .do()
     .then(info => {
-      res.send(info['data']['Get']['Document']);
+      res.send(info['data']['Get']['NewDocument']);
     })
     .catch(err => {
       console.error(err)
@@ -443,7 +443,7 @@ app.get('/get_data/', (req, res) => {
   console.log(filename, part)
   client.graphql
     .get()
-    .withClassName('Document')
+    .withClassName('NewDocument')
     .withFields(["index", "holder", "production", "episodenumber", "part", "aititle", "aisubtitle", "aikeywords", "bibleverses", "biblecharacters", "bibleconcepts", "famouspeople", "booksmentioned", "lifeissues", "biblicallesson", "questionanswered", "bookofthebible", "aifirstgrader", "aisimple", "aielegant", "aicreative", "aibiblical", "aicasual", "aiformal", "ainewsanchor", "ailoving", "importantphrase", "christiantopics", "biblicalconcepts", "describingwords", "biblereferences", "biblephrases", "aiphdstudent", "booknumber", "episodetitle", "filename", "paragraph", "summary", "productionimage", "publisher", "publisherimage", "testament", "type", "booktitle", "_additional { certainty }"])
     .withWhere({
       operator: 'EqualTo',
@@ -453,7 +453,7 @@ app.get('/get_data/', (req, res) => {
     .withLimit(20)
     .do()
     .then(info => {
-      res.send(info['data']['Get']['Document']);
+      res.send(info['data']['Get']['NewDocument']);
     })
     .catch(err => {
       console.error(err)

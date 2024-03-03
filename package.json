@@ -5,9 +5,9 @@
     "express": "^4.17.3",
     "init": "^0.1.2",
     "weaviate": "^0.0.14",
-    "weaviate-client": "^2.3.0"
+    "weaviate-client": "^2.14.5"
   },
-"scripts": {
-  "start": "node index.js"
-}
+  "scripts": {
+    "start": "node index.js"
+  }
 }
