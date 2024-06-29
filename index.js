@@ -230,10 +230,8 @@ app.get('/all/:text', (req, res) => {
         where_obj
       )
       .withNearText({
-        concepts: [text],
-        certainty: 0.7
+        concepts: [text]
       })
-      .withLimit(20)
       .do()
       .then(info => {
         res.send(info['data']['Get']['NewDocument']);
