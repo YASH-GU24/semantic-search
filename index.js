@@ -100,7 +100,8 @@ app.get('/get_filter', (req, res) => {
 })
 app.get('/all/:text', (req, res) => {
   const { text } = req.params;
-  const { field, value } = req.query;
+  const { field, value, num_results, threshold } = req.query;
+  console.log(field, value, num_results, threshold)
   if (field == null || value == null || field == '' || value == '') {
     console.log("hello")
     client.graphql
@@ -230,8 +231,10 @@ app.get('/all/:text', (req, res) => {
         where_obj
       )
       .withNearText({
-        concepts: [text]
+        concepts: [text],
+        certainty: parseFloat(threshold)
       })
+      .withLimit(parseInt(num_results))
       .do()
       .then(info => {
         res.send(info['data']['Get']['NewDocument']);
